@@ -1,0 +1,7 @@
+[package]
+name = "staticrypt_testbin"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+staticrypt = { version = "0.1.0", path = ".." }

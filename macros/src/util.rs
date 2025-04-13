@@ -6,10 +6,11 @@ use aes_gcm::{
 };
 use parking_lot::Mutex;
 use proc_macro_crate::crate_name;
-use proc_macro2::TokenStream;
+use proc_macro2::{Span, TokenStream};
 use quote::quote;
 use rand::SeedableRng;
 use rand::prelude::StdRng;
+use syn::Ident;
 
 static RNG: LazyLock<Mutex<StdRng>> = LazyLock::new(|| {
     let seed = get_seed();
@@ -44,7 +45,10 @@ pub fn staticrypt_crate_name() -> TokenStream {
     match crate_name("staticrypt") {
         Ok(r) => match r {
             proc_macro_crate::FoundCrate::Itself => quote! {crate},
-            proc_macro_crate::FoundCrate::Name(name) => quote! {::#name},
+            proc_macro_crate::FoundCrate::Name(name) => {
+                let name = Ident::new(&name, Span::call_site());
+                quote! {::#name}
+            }
         },
         Err(e) => {
             panic!("Error occurred while trying to determine crate name: {e}")
