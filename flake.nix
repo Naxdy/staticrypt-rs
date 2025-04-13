@@ -89,6 +89,8 @@
           ...
         }:
         {
+          cargoDoc = craneLib.cargoDoc (craneArgs // { inherit cargoArtifacts; });
+
           cargoTest = craneLib.cargoTest (
             craneArgs
             // {
