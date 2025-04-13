@@ -48,6 +48,8 @@
               env = {
                 RUST_BACKTRACE = "1";
                 STATICRYPT_SEED = "01234567890123456789012345678901";
+                RUSTFLAGS = "-Dwarnings";
+                RUSTDOCFLAGS = "-Dwarnings";
               };
             };
 
