@@ -28,19 +28,6 @@ pub fn init() -> TokenStream {
     }
 }
 
-pub fn decrypt_quote(encrypted_literal: TokenStream, nonce_literal: TokenStream) -> TokenStream {
-    let crate_name = staticrypt_crate_name();
-
-    quote! {
-        {
-            const ENCRYPTED: &[u8] = &#encrypted_literal;
-            const NONCE: &[u8] = &#nonce_literal;
-
-            String::from_utf8(#crate_name::decrypt(ENCRYPTED, NONCE, crate::STATICRYPT_ENCRYPT_KEY)).expect("Failed to parse contents to string")
-        }
-    }
-}
-
 pub fn staticrypt_crate_name() -> TokenStream {
     match crate_name("staticrypt") {
         Ok(r) => match r {

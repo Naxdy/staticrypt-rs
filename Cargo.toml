@@ -1,6 +1,6 @@
 [package]
 name = "staticrypt"
-version = "1.0.3"
+version = "1.0.4"
 edition = "2024"
 license = "MIT"
 description = "Static encryption for string literals and binary data"

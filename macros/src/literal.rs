@@ -1,7 +1,8 @@
 use proc_macro::TokenStream;
+use quote::quote;
 use syn::{LitStr, parse::Parse, parse_macro_input};
 
-use crate::util::{byte_array_literal, decrypt_quote, encrypt, get_key};
+use crate::util::{byte_array_literal, encrypt, get_key, staticrypt_crate_name};
 
 struct ScInput {
     literal: Vec<u8>,
@@ -28,5 +29,14 @@ pub fn sc(input: TokenStream) -> TokenStream {
 
     let nonce_literal = byte_array_literal(&nonce);
 
-    decrypt_quote(encrypted_literal, nonce_literal).into()
+    let crate_name = staticrypt_crate_name();
+
+    quote! {
+        {
+            const ENCRYPTED: &[u8] = &#encrypted_literal;
+            const NONCE: &[u8] = &#nonce_literal;
+
+            ::std::string::String::from_utf8(#crate_name::decrypt(ENCRYPTED, NONCE, crate::STATICRYPT_ENCRYPT_KEY)).expect("Failed to parse contents to string")
+        }
+    }.into()
 }
