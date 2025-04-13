@@ -49,6 +49,7 @@
 //! use this crate to embed sensitive information like API keys, passwords, private keys etc. in your
 //! application.
 #![allow(clippy::needless_doctest_main)]
+#![warn(missing_docs)]
 
 use aes_gcm::{Aes256Gcm, Key, KeyInit, aead::Aead};
 
