@@ -1,7 +1,7 @@
  # Staticrypt
 
  The name is an abbreviation of "Static Encryption" - a Rust proc macro libary to encrypt text
- literals or binary data using [`Aes256Gcm`].
+ literals or binary data using AES-256.
 
  The crate is intended to be a successor to the [`litcrypt`](https://docs.rs/litcrypt/latest/litcrypt/),
  and expand on the overall idea of the library.
@@ -10,10 +10,10 @@
  leaves the encrypted contents and a 96 bit nonce (unique for every encrypted item), protecting
  your data from static analysis tools.
 
- In contrast to to litcrypt's `lc`, staticrypt's [`sc`] supports all valid Rust string literals,
+ In contrast to to litcrypt's `lc`, staticrypt's `sc` supports all valid Rust string literals,
  including those with escape sequences, unicode characters, etc.
 
- To initialize staticrypt in a crate, the [`use_staticrypt`] macro needs to be called first. See
+ To initialize staticrypt in a crate, the `use_staticrypt` macro needs to be called first. See
  its doc page for more info on initial setup.
 
  ## Example
@@ -30,7 +30,7 @@
  }
  ```
 
- Everything inside the [`sc`] macro will be encrypted at compile time. You can verify that none
+ Everything inside the `sc` macro will be encrypted at compile time. You can verify that none
  of the strings are present in cleartext using something like `strings`:
 
  ```shell
