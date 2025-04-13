@@ -377,7 +377,7 @@ checksum = "8917285742e9f3e1683f0a9c4e6b57960b7314d0b08d30d1ecd426713ee2eee9"
 
 [[package]]
 name = "staticrypt"
-version = "1.0.0"
+version = "1.0.2"
 dependencies = [
  "aes-gcm",
  "staticrypt_macros",
@@ -385,7 +385,7 @@ dependencies = [
 
 [[package]]
 name = "staticrypt_macros"
-version = "1.0.1"
+version = "1.0.2"
 dependencies = [
  "aes-gcm",
  "darling",

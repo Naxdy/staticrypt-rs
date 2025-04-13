@@ -1,7 +1,9 @@
 [package]
 name = "staticrypt"
-version = "1.0.0"
+version = "1.0.2"
 edition = "2024"
+license = "MIT"
+description = "Static encryption for string literals and binary data"
 
 [workspace]
 members = [".", "macros", "testbin"]
