@@ -1,0 +1,19 @@
+[package]
+name = "staticrypt_macros"
+version = "0.1.0"
+edition = "2024"
+publish = false
+
+[lib]
+proc-macro = true
+
+[dependencies]
+aes-gcm.workspace = true
+darling = "0.20.11"
+parking_lot = "0.12.3"
+proc-macro-crate = "3.3.0"
+proc-macro-error2 = "2.0.1"
+proc-macro2 = "1.0.94"
+quote = "1.0.40"
+rand = "0.8.0"
+syn = "2.0.100"

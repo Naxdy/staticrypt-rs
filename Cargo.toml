@@ -1,0 +1,14 @@
+[package]
+name = "staticrypt"
+version = "0.1.0"
+edition = "2024"
+
+[workspace]
+members = [".", "macros"]
+
+[workspace.dependencies]
+aes-gcm = "0.10.3"
+
+[dependencies]
+aes-gcm.workspace = true
+staticrypt_macros = { version = "0.1.0", path = "macros" }
