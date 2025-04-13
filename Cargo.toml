@@ -1,6 +1,6 @@
 [package]
 name = "staticrypt"
-version = "1.0.2"
+version = "1.0.3"
 edition = "2024"
 license = "MIT"
 description = "Static encryption for string literals and binary data"
@@ -13,4 +13,4 @@ aes-gcm = "0.10.3"
 
 [dependencies]
 aes-gcm.workspace = true
-staticrypt_macros = { version = "*", path = "macros" }
+staticrypt_macros = { version = "1.0.0", path = "macros" }
