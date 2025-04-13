@@ -1,0 +1,47 @@
+name: Nix CI
+
+on: ['pull_request']
+
+concurrency:
+  group: nix-ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  flake_check:
+    name: Run flake checks
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: cachix/install-nix-action@v27
+
+      - name: Run `nix flake check`
+        run: |
+          nix flake check . --print-build-logs --max-jobs auto
+
+  reproducible_check:
+    name: Ensure reproducibility
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: cachix/install-nix-action@v27
+
+      - name: Enter devshell
+        uses: nicknovitski/nix-develop@v1
+
+      - name: Ensure reproducibility
+        run: |
+          cargo build --package staticrypt_testbin
+
+          sum1=(sha256sum target/debug/staticrypt_testbin)
+
+          rm -rf target
+
+          cargo build --package staticrypt_testbin
+
+          sum1=(sha256sum target/debug/staticrypt_testbin)
+
+          [[ "$sum1" = "$sum2" ]] || exit 1
