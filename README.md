@@ -3,7 +3,7 @@
  The name is an abbreviation of "Static Encryption" - a Rust proc macro libary to encrypt text
  literals or binary data using AES-256.
 
- The crate is intended to be a successor to the [`litcrypt`](https://docs.rs/litcrypt/latest/litcrypt/),
+ The crate is intended to be a successor to [`litcrypt`](https://docs.rs/litcrypt/latest/litcrypt/),
  and expand on the overall idea of the library.
 
  Like litcrypt, staticrypt works by encrypting the given data at compile time. In its place, it
