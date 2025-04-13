@@ -16,6 +16,11 @@ jobs:
 
       - uses: cachix/install-nix-action@v27
 
+      - uses: cachix/cachix-action@v14
+        with:
+          name: naxdy-foss
+          authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
+
       - name: Run `nix flake check`
         run: |
           nix flake check . --print-build-logs --max-jobs auto
@@ -29,6 +34,11 @@ jobs:
 
       - uses: cachix/install-nix-action@v27
 
+      - uses: cachix/cachix-action@v14
+        with:
+          name: naxdy-foss
+          authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
+
       - name: Enter devshell
         uses: nicknovitski/nix-develop@v1
 
@@ -36,12 +46,16 @@ jobs:
         run: |
           cargo build --package staticrypt_testbin
 
-          sum1=(sha256sum target/debug/staticrypt_testbin)
+          sum1=$(sha256sum target/debug/staticrypt_testbin)
+
+          echo "Initial hash is $sum1"
 
           rm -rf target
 
           cargo build --package staticrypt_testbin
 
-          sum1=(sha256sum target/debug/staticrypt_testbin)
+          sum2=$(sha256sum target/debug/staticrypt_testbin)
+
+          echo "Second hash is $sum2"
 
           [[ "$sum1" = "$sum2" ]] || exit 1
