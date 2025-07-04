@@ -7,6 +7,8 @@
     crane.url = "github:ipetkov/crane";
 
     fenix.url = "github:nix-community/fenix";
+
+    treefmt-nix.url = "github:numtide/treefmt-nix";
   };
 
   outputs =
@@ -15,12 +17,16 @@
       nixpkgs,
       crane,
       fenix,
+      treefmt-nix,
     }:
     let
       supportedSystems = [
         "x86_64-linux"
         "aarch64-linux"
+        "x86_64-darwin"
+        "aarch64-darwin"
       ];
+
       forEachSupportedSystem =
         f:
         nixpkgs.lib.genAttrs supportedSystems (
@@ -54,25 +60,43 @@
             };
 
             cargoArtifacts = craneLib.buildDepsOnly craneArgs;
+
+            cargoToml = builtins.fromTOML (builtins.readFile ./Cargo.toml);
+
+            treefmtEval = treefmt-nix.lib.evalModule pkgs (
+              import ./treefmt.nix { inherit rustToolchain cargoToml; }
+            );
+
+            treefmt = treefmtEval.config.build.wrapper;
           in
           f {
             inherit
-              pkgs
-              rustToolchain
-              craneLib
               cargoArtifacts
               craneArgs
+              craneLib
+              pkgs
+              rustToolchain
+              treefmt
+              treefmtEval
               ;
           }
         );
     in
     {
+      formatter = forEachSupportedSystem ({ treefmt, ... }: treefmt);
+
       devShells = forEachSupportedSystem (
-        { pkgs, rustToolchain, ... }:
+        {
+          pkgs,
+          rustToolchain,
+          treefmt,
+          ...
+        }:
         {
           default = pkgs.mkShell {
             nativeBuildInputs = [
               rustToolchain
+              treefmt
             ];
 
             STATICRYPT_SEED = "01234567890123456789012345678901";
@@ -86,9 +110,12 @@
           craneLib,
           cargoArtifacts,
           craneArgs,
+          treefmtEval,
           ...
         }:
         {
+          treefmt = treefmtEval.config.build.check self;
+
           cargoDoc = craneLib.cargoDoc (craneArgs // { inherit cargoArtifacts; });
 
           cargoTest = craneLib.cargoTest (
