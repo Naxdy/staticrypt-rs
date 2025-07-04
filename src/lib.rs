@@ -1,6 +1,6 @@
 //! # Staticrypt
 //!
-//! The name is an abbreviation of "Static Encryption" - a Rust proc macro libary to encrypt text
+//! The name is an abbreviation of "Static Encryption" - a Rust proc macro library to encrypt text
 //! literals or binary data using [`Aes256Gcm`].
 //!
 //! The crate is intended to be a successor to the [`litcrypt`](https://docs.rs/litcrypt/latest/litcrypt/),
