@@ -36,7 +36,7 @@ pub fn sc(input: TokenStream) -> TokenStream {
             const ENCRYPTED: &[u8] = &#encrypted_literal;
             const NONCE: &[u8] = &#nonce_literal;
 
-            ::std::string::String::from_utf8(#crate_name::decrypt(ENCRYPTED, NONCE, crate::STATICRYPT_ENCRYPT_KEY)).expect("Failed to parse contents to string")
+            ::std::string::String::from_utf8(#crate_name::decrypt(ENCRYPTED, NONCE, crate::STATICRYPT_ENCRYPT_KEY)).unwrap()
         }
     }.into()
 }

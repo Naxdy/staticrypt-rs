@@ -126,9 +126,7 @@ pub fn decrypt(input: &[u8], nonce: &[u8], key: &[u8]) -> Vec<u8> {
     let key = Key::<Aes256Gcm>::from_slice(key);
     let cipher = Aes256Gcm::new(key);
 
-    cipher
-        .decrypt(nonce.into(), input)
-        .expect("Failed to decrypt contents")
+    cipher.decrypt(nonce.into(), input).unwrap()
 }
 
 #[cfg(test)]
