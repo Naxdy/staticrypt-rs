@@ -54,6 +54,8 @@
               env = {
                 RUST_BACKTRACE = "1";
                 STATICRYPT_SEED = "01234567890123456789012345678901";
+                # used in doc test
+                MY_SECRET_VAR = "super secret env";
                 RUSTFLAGS = "-Dwarnings";
                 RUSTDOCFLAGS = "-Dwarnings";
               };

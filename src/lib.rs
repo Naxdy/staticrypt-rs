@@ -3,7 +3,7 @@
 //! The name is an abbreviation of "Static Encryption" - a Rust proc macro library to encrypt text
 //! literals or binary data using [`Aes256Gcm`].
 //!
-//! The crate is intended to be a successor to the [`litcrypt`](https://docs.rs/litcrypt/latest/litcrypt/),
+//! The crate is intended to be a successor to [`litcrypt`](https://docs.rs/litcrypt/latest/litcrypt/),
 //! and expand on the overall idea of the library.
 //!
 //! Like litcrypt, staticrypt works by encrypting the given data at compile time. In its place, it
@@ -47,7 +47,7 @@
 //! assumption that a sufficiently determined attacker will be able to reverse engineer your
 //! encryption and gain access to any data present in your binary, so it is **highly discouraged** to
 //! use this crate to embed sensitive information like API keys, passwords, private keys etc. in your
-//! application.
+//! application. You have been warned!
 #![allow(clippy::needless_doctest_main)]
 #![warn(missing_docs)]
 
@@ -115,6 +115,27 @@ pub use staticrypt_macros::sc;
 /// }
 /// ```
 pub use staticrypt_macros::sc_bytes;
+
+/// Reads and encrypts the contents of the specified environment variable using [`Aes256Gcm`] with
+/// the key embedded using [`use_staticrypt`] and a randomly generated nonce (derived from the
+/// `STATICRYPT_SEED` variable at compile time).
+///
+/// The contents of the environment variable are read at compile time.
+///
+/// Example:
+///
+/// ```rust
+/// use staticrypt::*;
+///
+/// use_staticrypt!();
+///
+/// fn main() {
+///     let encrypted = sc_env!("MY_SECRET_VAR");
+///
+///     assert_eq!(encrypted, "super secret env");
+/// }
+/// ```
+pub use staticrypt_macros::sc_env;
 
 use_staticrypt!();
 
