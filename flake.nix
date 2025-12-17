@@ -27,6 +27,8 @@
         "aarch64-darwin"
       ];
 
+      cargoToml = builtins.fromTOML (builtins.readFile ./Cargo.toml);
+
       forEachSupportedSystem =
         f:
         nixpkgs.lib.genAttrs supportedSystems (
@@ -62,8 +64,6 @@
             };
 
             cargoArtifacts = craneLib.buildDepsOnly craneArgs;
-
-            cargoToml = builtins.fromTOML (builtins.readFile ./Cargo.toml);
 
             treefmtEval = treefmt-nix.lib.evalModule pkgs (
               import ./treefmt.nix { inherit rustToolchain cargoToml; }
@@ -103,6 +103,28 @@
 
             STATICRYPT_SEED = "01234567890123456789012345678901";
           };
+        }
+      );
+
+      packages = forEachSupportedSystem (
+        {
+          craneLib,
+          cargoArtifacts,
+          craneArgs,
+          ...
+        }:
+        {
+          staticrypt-testbin = craneLib.buildPackage (
+            craneArgs
+            // {
+              pname = "staticrypt-testbin";
+              version = cargoToml.workspace.package.version;
+
+              inherit cargoArtifacts;
+
+              cargoExtraArgs = "--locked -p staticrypt-testbin";
+            }
+          );
         }
       );
 

@@ -1,5 +1,5 @@
 [package]
-name = "staticrypt_testbin"
+name = "staticrypt-testbin"
 version.workspace = true
 edition.workspace = true
 repository.workspace = true
