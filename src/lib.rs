@@ -143,6 +143,12 @@ use_staticrypt!();
 ///
 /// Note that manually calling this function should not be necessary, as the [`sc`] macro already
 /// does this behind the scenes.
+///
+/// # Panics
+///
+/// This function will panic if the decryption fails. This could happen e.g. due to file corruption
+/// of the resulting binary.
+#[must_use]
 pub fn decrypt(input: &[u8], nonce: &[u8], key: &[u8]) -> Vec<u8> {
     let key = Key::<Aes256Gcm>::from_slice(key);
     let cipher = Aes256Gcm::new(key);

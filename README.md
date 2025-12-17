@@ -21,7 +21,7 @@ its doc page for more info on initial setup.
 ```rust
 use staticrypt::*;
 
-// Needs to be present at the root of the crate.
+// Needs to be present at the root of the crate (i.e. `main.rs` or `lib.rs`).
 use_staticrypt!();
 
 fn main() {
@@ -40,11 +40,11 @@ strings target/debug/my_app | grep 42
 If the output is blank / does not contain the string you are looking for, then your app is safe
 from static analysis tools.
 
-## DISCLAIMER
-
-Although using tools like staticrypt makes it very difficult for attackers to view or alter
-your data, it does _not_ make it impossible. You should develop your programs with the
-assumption that a sufficiently determined attacker will be able to reverse engineer your
-encryption and gain access to any data present in your binary, so it is **highly discouraged** to
-use this crate to embed sensitive information like API keys, passwords, private keys etc. in your
-application.
+> [!WARNING]
+>
+> Although using tools like staticrypt makes it very difficult for attackers to view or alter
+> your data, it does _not_ make it impossible. You should develop your programs with the
+> assumption that a sufficiently determined attacker will be able to reverse engineer your
+> encryption and gain access to any data present in your binary, so it is **highly discouraged** to
+> use this crate to embed sensitive information like API keys, passwords, private keys etc. in your
+> application.

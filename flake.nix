@@ -130,6 +130,8 @@
               '';
             }
           );
+
+          cargoClippy = craneLib.cargoClippy (craneArgs // { inherit cargoArtifacts; });
         }
       );
     };

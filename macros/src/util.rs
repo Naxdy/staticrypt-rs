@@ -138,9 +138,8 @@ fn get_seed() -> Result<Vec<u8>, SeedError> {
         out
     });
 
-    let mut seed: Vec<u8> = std::env::var("STATICRYPT_SEED")
-        .map(|e| e.into())
-        .unwrap_or(RANDOM_SEED.to_vec());
+    let mut seed: Vec<u8> =
+        std::env::var("STATICRYPT_SEED").map_or_else(|_| RANDOM_SEED.to_vec(), Into::into);
 
     if seed.len() > 32 {
         return Err(SeedError::InvalidLength(seed.len()));

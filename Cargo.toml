@@ -7,8 +7,15 @@ repository.workspace = true
 version.workspace = true
 authors.workspace = true
 
+[lints]
+workspace = true
+
 [workspace]
 members = [".", "macros", "testbin"]
+
+[workspace.lints.clippy]
+pedantic = { level = "warn", priority = 0 }
+nursery = { level = "warn", priority = 0 }
 
 [workspace.package]
 edition = "2024"
