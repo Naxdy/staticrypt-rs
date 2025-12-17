@@ -1,6 +1,7 @@
 [package]
 description = "Static encryption for string literals and binary data"
 name = "staticrypt"
+documentation = "https://docs.rs/staticrypt"
 edition.workspace = true
 license.workspace = true
 repository.workspace = true
@@ -21,7 +22,7 @@ nursery = { level = "warn", priority = 0 }
 edition = "2024"
 license = "MIT"
 repository = "https://github.com/Naxdy/staticrypt-rs"
-version = "1.2.1"
+version = "1.2.2"
 authors = ["Naxdy <naxdy@naxdy.org>"]
 
 [workspace.dependencies]
@@ -29,4 +30,4 @@ aes-gcm = "0.10.3"
 
 [dependencies]
 aes-gcm.workspace = true
-staticrypt_macros = { version = "1.2.1", path = "macros" }
+staticrypt_macros = { version = "1.2.2", path = "macros" }
